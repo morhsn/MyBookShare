@@ -2,7 +2,7 @@ MyBookShare
 =========
 
 A social network which allows the exchange of books among friends.<BR>
-MyBookShare allow any user to manage his bookshelf, add books to it from Google Books,
+MyBookShare allows any user to manage his bookshelf, add books to it from Google Books,
 and share it with his facebook friends.<BR>
 MyBookShare allows the users to request books from each other, and manage the requests and many other great features.<BR>
 
