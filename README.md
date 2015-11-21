@@ -25,5 +25,4 @@ https://github.com/morhsn/MyBookShare
 https://trello.com/b/GgHCAZaV/mybookshare
 
 ###License: 
-The MyBookShare project is licensed under the open source BSD license.<BR>
 Copyright (c) 2015 - 2016, MyBookShare & JCE All rights reserved.
