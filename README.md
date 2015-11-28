@@ -7,13 +7,13 @@ and share it with his facebook friends.<BR>
 MyBookShare allows the users to request books from each other, and manage the requests and many other great features.<BR>
 
 ###Technology: 
-LAMP
+LAMP (Linux, Apache, MySQL, PHP)
 
 ###Creator: 
 Mor Hasson
 
 ###Deployment: 
-[Domain Here. Not Yet Created]
+http://mybooksharing.tk/
 
 ###Documentation and Developer Manual
 https://github.com/morhsn/MyBookShare/wiki
