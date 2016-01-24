@@ -28,18 +28,19 @@ class Page extends CI_Controller
 
     public function index()
     {
-        $this->bookshelf();
+        $this->findBooksPage();
     }
 
-    public function bookshelf()
+    public function findBooksPage()
     {
-        $data['title'] = "My Bookshelf";
+        $data['title'] = "Find Books";
         $this->load->view('header', $data);
-        $pageTitleData['pageTitle'] = "My Bookshelf";
-        $pageTitleData['pageTitleDesc'] = "Manage your books.";
+        $pageTitleData['pageTitle'] = "Find Books";
+        $pageTitleData['pageTitleDesc'] = "Find Books To Add To Your Bookshelf.";
         $this->load->view('page_title', $pageTitleData);
         $this->load->view('book_search_form');
-        $this->load->view('my_bookshelf', $data);
+        $this->load->view('no_books_found');
+//        $this->load->view('my_bookshelf', $data);
         $this->load->view('footer', $data);
     }
 
@@ -48,15 +49,33 @@ class Page extends CI_Controller
         $this->load->model('google_model');
         $searchTerm = $this->input->post('searchTerm');
 //        $this->loadHeader("Search Results");
-        $data['title'] = "My Bookshelf";
+        $data['title'] = "Find Books";
         $this->load->view('header', $data);
-        $pageTitleData['pageTitle'] = "My Bookshelf";
-        $pageTitleData['pageTitleDesc'] = "Manage your books.";
+        $pageTitleData['pageTitle'] = "Find Books";
+        $pageTitleData['pageTitleDesc'] = "Find Books To Add To Your Bookshelf.";
         $this->load->view('page_title', $pageTitleData);
         $this->load->view('book_search_form');
         $data['searchResults'] = $this->google_model->searchBook($searchTerm);
         $this->load->view('book_search_results', $data);
-        $this->load->view('my_bookshelf', $data);
+//        $this->load->view('my_bookshelf', $data);
+        $this->load->view('footer', $data);
+    }
+
+    public function myBookshelf()
+    {
+        $this->load->model('google_model');
+        $searchTerm = "Arts";
+//        $this->loadHeader("Search Results");
+        $data['title'] = "My Bookshelf";
+        $this->load->view('header', $data);
+        $pageTitleData['pageTitle'] = "My Bookshelf";
+        $pageTitleData['pageTitleDesc'] = "The Books You Own.";
+        $this->load->view('page_title', $pageTitleData);
+//        $this->load->view('book_search_form');
+        $data['searchResults'] = $this->google_model->searchBook($searchTerm);
+//        Next line is fake just to create results for prototype
+        $this->load->view('my_bookshelf_results', $data);
+//        $this->load->view('my_bookshelf', $data);
         $this->load->view('footer', $data);
     }
 
