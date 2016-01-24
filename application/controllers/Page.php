@@ -46,19 +46,17 @@ class Page extends CI_Controller
 
     public function searchBook()
     {
-        $this->load->model('google_model');
-        $searchTerm = $this->input->post('searchTerm');
-//        $this->loadHeader("Search Results");
-        $data['title'] = "Find Books";
-        $this->load->view('header', $data);
-        $pageTitleData['pageTitle'] = "Find Books";
-        $pageTitleData['pageTitleDesc'] = "Find Books To Add To Your Bookshelf.";
-        $this->load->view('page_title', $pageTitleData);
-        $this->load->view('book_search_form');
-        $data['searchResults'] = $this->google_model->searchBook($searchTerm);
-        $this->load->view('book_search_results', $data);
-//        $this->load->view('my_bookshelf', $data);
-        $this->load->view('footer', $data);
+        $this->load->model('google_model'); // Load the Google model
+        $searchTerm = $this->input->post('searchTerm'); // Get the searchTerm the user used
+        $data['title'] = "Find Books"; // Define the title of the page
+        $this->load->view('header', $data); // Load the header
+        $pageTitleData['pageTitle'] = "Find Books"; // Define the title used inside the page
+        $pageTitleData['pageTitleDesc'] = "Find Books To Add To Your Bookshelf."; // Define the subtitle
+        $this->load->view('page_title', $pageTitleData); // Load the page title section
+        $this->load->view('book_search_form'); // Load the search form
+        $data['searchResults'] = $this->google_model->searchBook($searchTerm); // Get the books that match the search term from Google Books
+        $this->load->view('book_search_results', $data); // Load the search results section and have it populated by the results from Google
+        $this->load->view('footer', $data); // Load the Footer
     }
 
     public function myBookshelf()
