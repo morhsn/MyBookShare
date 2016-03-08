@@ -122,7 +122,6 @@ class Google
         curl_setopt($ch, CURLOPT_REFERER, $this->_ci->config->site_url($this->_ci->uri->uri_string()));
         $response = curl_exec($ch);
         curl_close($ch);
-
         $response = json_decode($response);
 
         if ($response->responseStatus != 200) {

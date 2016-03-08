@@ -8,9 +8,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="col-md-1">
         </div>
         <div class="col-md-9">
-            <form action="/page/searchBook" method="post" name="searchForm">
+            <form action="/page/searchBook" method="post" name="searchForm" id="searchForm">
                 Find Book:<BR>
-                <input type="text" name="searchTerm">
+                <input type="text" name="searchTerm" id="searchTerm">
+                <input type="hidden" name="pageNumber" id="pageNumber" value="1">
                 <button type="submit" class="btn btn-default btn-sm">
                     <span class="glyphicon glyphicon-plus"></span> Search
                 </button>
