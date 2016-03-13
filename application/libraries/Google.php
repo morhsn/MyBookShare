@@ -125,7 +125,7 @@ class Google
         $response = json_decode($response);
 
         if ($response->responseStatus != 200) {
-            show_error(sprintf('Google API Error (%s): %s', $response->responseStatus, $response->responseDetails));
+//            show_error(sprintf('Google API Error (%s): %s', $response->responseStatus, $response->responseDetails));
         }
         return $response->responseData;
     }

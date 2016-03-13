@@ -30,39 +30,38 @@ class google_model extends CI_Model
 
     public function searchBook($searchTerm, $pageNumber)
     {
-        $this->load->library('google');
-        echo $pageNumber . '<br />';
-        $indexNumber = ($pageNumber - 1) * 8; // Index starts with 0 and page numbers start with 1
-        echo $indexNumber;
-        $params = array('start' => $indexNumber); // Define the start index of the search
-        $searchOutput = $this->google->books($searchTerm, $params);
-        $googleBooks = $searchOutput->results;
-        if (!empty($googleBooks)) {
-            echo "NOT EMPTY";
-            $maxPage = end($searchOutput->cursor->pages)->label; // The amount of pages in the result
-            reset($searchOutput->cursor->pages); // Reset the change of pointers done by the "end" function
-            if ($googleBooks == null || count($googleBooks) == 0)
-                return null;
-            $searchResults = array(count($googleBooks));
-            foreach ($googleBooks as $googleBook) {
-                $google_id = $googleBook->unescapedUrl;
-                $start = strpos($google_id, '?id=') + 4;
-                $google_id = substr($google_id, $start, strpos($google_id, '&') - $start);
-                $book = array(
-                    "google_id" => $google_id,
-                    "name" => $googleBook->title,
-                    "author" => $googleBook->authors,
-                    "publishedYear" => $googleBook->publishedYear,
-                    "isbn" => $googleBook->bookId
+        if (!empty($searchTerm) && !empty($pageNumber)) {
+            $this->load->library('google');
+            $indexNumber = ($pageNumber - 1) * 8; // Index starts with 0 and page numbers start with 1
+            $params = array('start' => $indexNumber); // Define the start index of the search
+            $searchOutput = $this->google->books($searchTerm, $params);
+            if (isset($searchOutput)) {
+                $googleBooks = $searchOutput->results;
+                $maxPage = end($searchOutput->cursor->pages)->label; // The amount of pages in the result
+                reset($searchOutput->cursor->pages); // Reset the change of pointers done by the "end" function
+                if ($googleBooks == null || count($googleBooks) == 0)
+                    return null;
+                $searchResults = array(count($googleBooks));
+                foreach ($googleBooks as $googleBook) {
+                    $google_id = $googleBook->unescapedUrl;
+                    $start = strpos($google_id, '?id=') + 4;
+                    $google_id = substr($google_id, $start, strpos($google_id, '&') - $start);
+                    $book = array(
+                        "google_id" => $google_id,
+                        "name" => $googleBook->title,
+                        "author" => $googleBook->authors,
+                        "publishedYear" => $googleBook->publishedYear,
+                        "isbn" => $googleBook->bookId
+                    );
+                    array_push($searchResults, $book);
+                }
+                $metaData = array(
+                    "pageCount" => $maxPage,
+                    "currentPage" => $searchOutput->cursor->currentPageIndex,
+                    "moreResultsUrl " => $searchOutput->cursor->moreResultsUrl
                 );
-                array_push($searchResults, $book);
+                array_push($searchResults, $metaData);
             }
-            $metaData = array(
-                "pageCount" => $maxPage,
-                "currentPage" => $searchOutput->cursor->currentPageIndex,
-                "moreResultsUrl " => $searchOutput->cursor->moreResultsUrl
-            );
-            array_push($searchResults, $metaData);
         }
         return (isset($searchResults) ? $searchResults : null);
     }

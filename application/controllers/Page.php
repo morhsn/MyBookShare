@@ -36,10 +36,10 @@ class Page extends CI_Controller
         $data['title'] = "Find Books";
         $this->load->view('header', $data);
         $pageTitleData['pageTitle'] = "Find Books";
-        $pageTitleData['pageTitleDesc'] = "Find Books To Add To Your Bookshelf.";
+        $pageTitleData['pageTitleDesc'] = "Find The Books You care about.";
         $this->load->view('page_title', $pageTitleData);
         $this->load->view('book_search_form');
-        $this->load->view('no_books_found');
+//        $this->load->view('no_books_found');
 //        $this->load->view('my_bookshelf', $data);
         $this->load->view('footer', $data);
     }
@@ -49,14 +49,24 @@ class Page extends CI_Controller
         $this->load->model('google_model'); // Load the Google model
         $searchTerm = $this->input->post('searchTerm'); // Get the searchTerm the user used
         $pageNumber = $this->input->post('pageNumber'); // Get the pageNumber the user selected
+        if (!isset($searchTerm) || !isset($pageNumber)) // Shouldn't happen, but might with user's client edits
+        {
+            $this->findBooksPage();
+            return;
+        }
         $data['title'] = "Find Books"; // Define the title of the page
         $this->load->view('header', $data); // Load the header
         $pageTitleData['pageTitle'] = "Find Books"; // Define the title used inside the page
         $pageTitleData['pageTitleDesc'] = "Find Books To Add To Your Bookshelf."; // Define the subtitle
         $this->load->view('page_title', $pageTitleData); // Load the page title section
-        $this->load->view('book_search_form'); // Load the search form
+        $data['searchTerm'] = $searchTerm; // Save the search term for use in the page
+        $this->load->view('book_search_form', $data); // Load the search form
         $data['searchResults'] = $this->google_model->searchBook($searchTerm, $pageNumber); // Get the books that match the search term from Google Books
-        $this->load->view('book_search_results', $data); // Load the search results section and have it populated by the results from Google
+        if (isset($data['searchResults'])) {
+            $this->load->view('book_search_results', $data); // Load the search results section and have it populated by the results from Google
+        } else {
+            $this->load->view('no_books_found');
+        }
         $this->load->view('footer', $data); // Load the Footer
     }
 
