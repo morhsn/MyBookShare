@@ -46,6 +46,7 @@
                     <img class="img-thumbnail" data-src="holder.js/140x140" alt="140x140"
                          src="https://graph.facebook.com/<?= $user_profile['id'] ?>/picture?type=large"
                          style="width: 140px; height: 140px;">
+                    <?php print_r($user_profile) ?>
                     <h2><?= $user_profile['name'] ?></h2>
                     <a href="<?= $user_profile['link'] ?>" class="btn btn-lg btn-default btn-block" role="button">View
                         Profile</a>

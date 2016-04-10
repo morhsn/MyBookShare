@@ -28,13 +28,42 @@ class Page extends CI_Controller
 
     public function index()
     {
-        $this->findBooksPage();
+        $this->load->model('facebook_model');
+        $data['fbLogin'] = $this->facebook_model->getLoginUrl();
+//        $data['title'] = 'Welcome To MyBookSharing'; // Define the title of the page
+//        $this->load->view('header', $data);
+        $this->loadHeader('Welcome To MyBookSharing');
+//        $pageTitleData['pageTitle'] = "Find Books"; // Define the title used inside the page
+//        $pageTitleData['pageTitleDesc'] = "Find Books To Add To Your Bookshelf."; // Define the subtitle
+//        $this->load->view('page_title', $pageTitleData); // Load the page title section
+        $this->load->view('footer'); // Load the Footer
     }
 
-    public function findBooksPage()
+    private function loadHeader($title)
     {
-        $data['title'] = "Find Books";
-        $this->load->view('header', $data);
+        $this->load->model('login_model');
+        $this->load->model('facebook_model');
+        $user = $this->login_model->getCurrentUser();
+
+        if ($user != null) {
+            $dataHeader['username'] = $user->name;
+            $dataHeader['loggedIn'] = true;
+        } else {
+            $dataHeader['username'] = "login";
+            $dataHeader['loggedIn'] = false;
+        }
+//        if($dataHeader['loggedIn'] == true && $title == "MyBookSharing")
+//            redirect(base_url("page/NewsFeed"));
+        $dataHeader['fbLogin'] = $this->facebook_model->getLoginUrl();
+        $dataHeader['title'] = $title;
+        $this->load->view('header', $dataHeader);
+    }
+
+    public function FindBooksPage()
+    {
+        $this->load->model('facebook_model');
+        $data['fbLogin'] = $this->facebook_model->getLoginUrl();
+        $this->loadHeader('Find Books');
         $pageTitleData['pageTitle'] = "Find Books";
         $pageTitleData['pageTitleDesc'] = "Find The Books You care about.";
         $this->load->view('page_title', $pageTitleData);
@@ -44,8 +73,10 @@ class Page extends CI_Controller
         $this->load->view('footer', $data);
     }
 
-    public function searchBook()
+    public function SearchBook()
     {
+        $this->load->model('facebook_model');
+        $data['fbLogin'] = $this->facebook_model->getLoginUrl();
         $this->load->model('google_model'); // Load the Google model
         $searchTerm = $this->input->post('searchTerm'); // Get the searchTerm the user used
         $pageNumber = $this->input->post('pageNumber'); // Get the pageNumber the user selected
