@@ -68,63 +68,50 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <nav id="primary-menu">
 
                     <ul>
-                        <li><a href="index.html">
-                                <div>Home</div>
+                        <li><a href="http://mybooksharing.tk">
+                                <div><i class="icon-home"></i>Home</div>
                             </a>
                         </li>
                         <li><a href="page/Newsfeed">
-                                <div>News feed</div>
-                            </a>
-                        </li>
-                        <li><a href="page/MyBookshelf">
-                                <div>My Bookshelf</div>
+                                <div><i class="icon-star2"></i>News feed</div>
                             </a>
                         </li>
                         <li><a href="page/FindBooksPage">
-                                <div>Find Books</div>
+                                <div><i class="icon-line-search"></i>Book Search</div>
                             </a>
                         </li>
-                        <li><a href="page/LoansCP">
-                                <div>Loans Control Panel</div>
+                        <li><a href="page/BookManagement">
+                                <div><i class="icon-line-book"></i>Book Management</div>
                             </a>
+                        </li>
+                        <li style="border-left: 1px solid #EEE;">
+
+                            <?php if ($loggedIn): ?>
+                                <a href="#">
+                                    <div><i class="icon-angle-down"></i>Hello <?php echo $username; ?></div>
+                                </a>
+                            <?php else: ?>
+                                <a href="<?php echo $fbLogin; ?>">
+                                    <img src="images/login-facebook.png"
+                                         alt="Log In With Facebook" border="0"/>
+                                </a>
+                            <?php endif ?>
+                            <?php if ($loggedIn): ?>
+                                <ul>
+                                    <li><a href="page/MyAccount">
+                                            <div class="ls1"><i class="icon-line-head"></i>My Account</div>
+                                        </a></li>
+                                    <li><a href="page/MyBookshelf">
+                                            <div class="ls1"><i class="icon-line-stack-2"></i>My Bookshelf</div>
+                                        </a>
+                                    </li>
+                                    <li><a href="<?php echo $fbLogin; ?>">
+                                            <div class="ls1"><i class="icon-line2-logout"></i>Log Out</div>
+                                        </a></li>
+                                </ul>
+                            <?php endif ?>
                         </li>
                     </ul>
-
-                    <div>
-                        <?php if ($loggedIn): ?>
-
-                            <ul class="nav navbar-nav navbar-right">
-
-                                <li class="dropdown">
-
-                                    <a href="#" class="dropdown-toggle"
-                                       data-toggle="dropdown">Hello <?php echo $username; ?> <b class="caret"></b></a>
-
-                                    <ul class="dropdown-menu">
-
-                                        <li><a href="<?php echo $fbLogin; ?>">Logout</a></li>
-
-
-                                    </ul>
-
-                                </li>
-
-                            </ul>
-
-                        <?php else: ?>
-
-                            <ul class="nav navbar-nav navbar-right">
-
-                                <li class="active">
-
-                                    <a href="<?php echo $fbLogin; ?>">Login</a>
-
-                                </li>
-
-                            </ul>
-
-                        <?php endif ?>
-                    </div>
 
                 </nav><!-- #primary-menu end -->
 

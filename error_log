@@ -1,0 +1,12 @@
+[03-Jan-2016 13:16:07 America/New_York] PHP Fatal error:  Call to a member function logout() on a non-object in /home/mybooksharing/public_html/application/controllers/User.php on line 28
+[04-Jan-2016 11:38:44 America/New_York] PHP Fatal error:  Call to a member function searchBook() on a non-object in /home/mybooksharing/public_html/application/controllers/Page.php on line 56
+[23-Jan-2016 08:11:58 America/New_York] PHP Parse error:  syntax error, unexpected '$data' (T_VARIABLE) in /home/mybooksharing/public_html/application/controllers/Page.php on line 68
+[02-Mar-2016 05:42:22 America/New_York] PHP Fatal error:  Call to a member function getNextPageToken() on a non-object in /home/mybooksharing/public_html/application/models/Google_model.php on line 35
+[13-Mar-2016 11:43:09 America/New_York] PHP Fatal error:  Call to undefined function print_error() in /home/mybooksharing/public_html/application/models/Google_model.php on line 68
+[13-Mar-2016 12:44:29 America/New_York] PHP Parse error:  syntax error, unexpected '$this' (T_VARIABLE), expecting ',' or ';' in /home/mybooksharing/public_html/application/controllers/Page.php on line 64
+[14-Mar-2016 07:23:07 America/New_York] CSRF state token does not match one provided.
+[14-Mar-2016 07:25:50 America/New_York] CSRF state token does not match one provided.
+[14-Mar-2016 07:25:50 America/New_York] CSRF state token does not match one provided.
+[14-Mar-2016 08:22:08 America/New_York] CSRF state token does not match one provided.
+[14-Mar-2016 08:22:24 America/New_York] CSRF state token does not match one provided.
+[14-Mar-2016 08:22:24 America/New_York] CSRF state token does not match one provided.

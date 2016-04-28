@@ -6,9 +6,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <div class="row">
         <form action="/page/searchBook" method="post" name="searchForm" id="searchForm" onsubmit="return validate();">
-            <div class="fancy-title title-dotted-border">
-                <h3><span>Search</span> For:</h3>
-            </div>
             <div class="col-md-8 center">
                 <input type="text"
                     <?php if (!empty($searchTerm)) {

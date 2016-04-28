@@ -12,7 +12,6 @@ class google_model extends CI_Model
         $this->load->library('google');
 
         $googleBooks = $this->google->books($googleBookId, array('id' => $googleBookId))->results;
-        //print_r($googleBooks);
         if ($googleBooks == null || count($googleBooks) == 0)
             return null;
         $google_id = $googleBooks[0]->unescapedUrl;
@@ -37,6 +36,9 @@ class google_model extends CI_Model
             $searchOutput = $this->google->books($searchTerm, $params);
             if (isset($searchOutput)) {
                 $googleBooks = $searchOutput->results;
+                if (empty($googleBooks)) {
+                    return null;
+                }
                 $maxPage = end($searchOutput->cursor->pages)->label; // The amount of pages in the result
                 reset($searchOutput->cursor->pages); // Reset the change of pointers done by the "end" function
                 if ($googleBooks == null || count($googleBooks) == 0)

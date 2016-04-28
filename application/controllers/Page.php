@@ -28,8 +28,8 @@ class Page extends CI_Controller
 
     public function index()
     {
-        $this->load->model('facebook_model');
-        $data['fbLogin'] = $this->facebook_model->getLoginUrl();
+//        $this->load->model('facebook_model');
+//        $data['fbLogin'] = $this->facebook_model->getLoginUrl();
 //        $data['title'] = 'Welcome To MyBookSharing'; // Define the title of the page
 //        $this->load->view('header', $data);
         $this->loadHeader('Welcome To MyBookSharing');
@@ -37,6 +37,14 @@ class Page extends CI_Controller
 //        $pageTitleData['pageTitleDesc'] = "Find Books To Add To Your Bookshelf."; // Define the subtitle
 //        $this->load->view('page_title', $pageTitleData); // Load the page title section
         $this->load->view('footer'); // Load the Footer
+    }
+
+    public function test()
+    {
+        $this->load->model('google_model');
+        $google_id = 'DHAvBQAAQBAJ';
+        $googleBooks = $this->google_model->getBookDetails($google_id);
+        echo 'done';
     }
 
     private function loadHeader($title)
@@ -57,66 +65,117 @@ class Page extends CI_Controller
         $dataHeader['fbLogin'] = $this->facebook_model->getLoginUrl();
         $dataHeader['title'] = $title;
         $this->load->view('header', $dataHeader);
+        return $dataHeader;
+    }
+
+    /**
+     * Checks if user is logged in. If so, return true and do nothing else.
+     * If not, return false and show user login prompt.
+     */
+    public function checkIfLoggedIn($loginDetails)
+    {
+        if (!$loginDetails['loggedIn']) {
+            $this->load->view('login', $loginDetails);
+            return false;
+        }
+        return true;
     }
 
     public function FindBooksPage()
     {
-        $this->load->model('facebook_model');
-        $data['fbLogin'] = $this->facebook_model->getLoginUrl();
-        $this->loadHeader('Find Books');
-        $pageTitleData['pageTitle'] = "Find Books";
-        $pageTitleData['pageTitleDesc'] = "Find The Books You care about.";
-        $this->load->view('page_title', $pageTitleData);
-        $this->load->view('book_search_form');
-//        $this->load->view('no_books_found');
-//        $this->load->view('my_bookshelf', $data);
-        $this->load->view('footer', $data);
+        $dataHeader = $this->loadHeader('Find Books');
+
+        if ($this->checkIfLoggedIn($dataHeader)) {
+            $pageTitleData['pageTitle'] = "Find Books";
+            $pageTitleData['pageTitleDesc'] = "Find The Books You Care About.";
+            $this->load->view('page_title', $pageTitleData);
+            $this->load->view('book_search_form');
+        }
+
+        $this->load->view('footer');
     }
 
     public function SearchBook()
     {
-        $this->load->model('facebook_model');
-        $data['fbLogin'] = $this->facebook_model->getLoginUrl();
-        $this->load->model('google_model'); // Load the Google model
-        $searchTerm = $this->input->post('searchTerm'); // Get the searchTerm the user used
-        $pageNumber = $this->input->post('pageNumber'); // Get the pageNumber the user selected
-        if (!isset($searchTerm) || !isset($pageNumber)) // Shouldn't happen, but might with user's client edits
-        {
-            $this->findBooksPage();
-            return;
+        $dataHeader = $this->loadHeader('Find Books');
+
+        if ($this->checkIfLoggedIn($dataHeader)) {
+            $this->load->model('google_model'); // Load the Google model
+            $searchTerm = $this->input->post('searchTerm'); // Get the searchTerm the user used
+            $pageNumber = $this->input->post('pageNumber'); // Get the pageNumber the user selected
+            if (!isset($searchTerm) || !isset($pageNumber)) // Shouldn't happen, but might with user's client edits
+            {
+                $this->load->view('no_books_found');
+                $this->load->view('footer'); // Load the Footer
+                return;
+            }
+            $pageTitleData['pageTitle'] = "Find Books"; // Define the title used inside the page
+            $pageTitleData['pageTitleDesc'] = "Find Books To Add To Your Bookshelf."; // Define the subtitle
+            $this->load->view('page_title', $pageTitleData); // Load the page title section
+            $data['searchTerm'] = $searchTerm; // Save the search term for use in the page
+            $this->load->view('book_search_form', $data); // Load the search form
+            $data['searchResults'] = $this->google_model->searchBook($searchTerm, $pageNumber); // Get the books that match the search term from Google Books
+            if (isset($data['searchResults'])) {
+                $this->load->view('book_search_results', $data); // Load the search results section and have it populated by the results from Google
+            } else {
+                $this->load->view('no_books_found');
+            }
         }
-        $data['title'] = "Find Books"; // Define the title of the page
-        $this->load->view('header', $data); // Load the header
-        $pageTitleData['pageTitle'] = "Find Books"; // Define the title used inside the page
-        $pageTitleData['pageTitleDesc'] = "Find Books To Add To Your Bookshelf."; // Define the subtitle
-        $this->load->view('page_title', $pageTitleData); // Load the page title section
-        $data['searchTerm'] = $searchTerm; // Save the search term for use in the page
-        $this->load->view('book_search_form', $data); // Load the search form
-        $data['searchResults'] = $this->google_model->searchBook($searchTerm, $pageNumber); // Get the books that match the search term from Google Books
-        if (isset($data['searchResults'])) {
-            $this->load->view('book_search_results', $data); // Load the search results section and have it populated by the results from Google
-        } else {
-            $this->load->view('no_books_found');
-        }
-        $this->load->view('footer', $data); // Load the Footer
+        $this->load->view('footer'); // Load the Footer
     }
 
     public function myBookshelf()
     {
-        $this->load->model('google_model');
-        $searchTerm = "Arts";
-//        $this->loadHeader("Search Results");
-        $data['title'] = "My Bookshelf";
-        $this->load->view('header', $data);
-        $pageTitleData['pageTitle'] = "My Bookshelf";
-        $pageTitleData['pageTitleDesc'] = "The Books You Own.";
-        $this->load->view('page_title', $pageTitleData);
-//        $this->load->view('book_search_form');
-        $data['searchResults'] = $this->google_model->searchBook($searchTerm);
-//        Next line is fake just to create results for prototype
-        $this->load->view('my_bookshelf_results', $data);
-//        $this->load->view('my_bookshelf', $data);
-        $this->load->view('footer', $data);
+        $dataHeader = $this->loadHeader('My Bookshelf');
+
+        if ($this->checkIfLoggedIn($dataHeader)) {
+            $this->load->model('login_model');
+            $this->load->model('book_model');
+
+            $user = $this->login_model->getCurrentUser();
+            if ($user != null) {
+                $data['books'] = $this->book_model->getUserBooks($user->id);
+                $this->load->view('my_bookshelf_books', $data);
+            }
+        }
+        $this->load->view('footer');
+    }
+
+    public function bookManagement()
+    {
+        $dataHeader = $this->loadHeader('Book Management');
+
+        if ($this->checkIfLoggedIn($dataHeader)) {
+            // User Id is the user who got the book.
+            // Friend Id is the user who gave the book.
+            $this->load->model('login_model');
+            $this->load->model('loan_model');
+
+            $user = $this->login_model->getCurrentUser();
+            if ($user != null) {
+                $data['loansToMe'] = $this->loan_model->getLoansTo($user->id);
+                $data['loansFromMe'] = $this->loan_model->getLoansFrom($user->id);
+                $this->load->view('loans', $data);
+            }
+        }
+        $this->load->view('footer');
+    }
+
+    public function newsfeed()
+    {
+        $dataHeader = $this->loadHeader('News Feed');
+
+        if ($this->checkIfLoggedIn($dataHeader)) {
+            $this->load->model('login_model');
+            $this->load->model('newsfeed_model');
+
+            $user = $this->login_model->getCurrentUser();
+            if ($user != null) {
+                $data['result'] = $this->newsfeed_model->getNewsFeedBooks($user->id);
+                $this->load->view('newsfeed', $data);
+            }
+        }
+        $this->load->view('footer');
     }
 
     public function login()

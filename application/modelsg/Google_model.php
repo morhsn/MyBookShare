@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: Owner
- * Date: 23/05/14
- * Time: 23:12
- */
 class google_model extends CI_Model
 {
 
@@ -18,7 +12,7 @@ class google_model extends CI_Model
         $this->load->library('google');
 
         $googleBooks = $this->google->books($googleBookId, array('id' => $googleBookId))->results;
-        //print_r($googleBooks);
+        print_r($googleBooks);
         if ($googleBooks == null || count($googleBooks) == 0)
             return null;
         $google_id = $googleBooks[0]->unescapedUrl;
