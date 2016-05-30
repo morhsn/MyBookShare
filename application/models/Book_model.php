@@ -25,6 +25,12 @@ class book_model extends CI_Model
         return null;
     }
 
+    function getBookByGoogleIdFromGoogle($googleBookId)
+    {
+        $this->load->model('google_model');
+        return $this->google_model->getBookDetails($googleBookId);
+    }
+
     public function getUserBooks($userId)
     {
         $queryStr = 'SELECT * FROM book WHERE id IN (SELECT book_id from users_owned_books WHERE user_id=' . $userId . ');';
@@ -54,8 +60,13 @@ class book_model extends CI_Model
     function addBook($google_id)
     {
         $book = $this->getBookByGoogleId($google_id);
+//        $debug = array(
+//            'debug-text' => $book->id
+//        );
+//        $this->db->insert('debug', $debug);
         if ($book == null) { // The book is not in the database yet
             $googleBook = $this->google_model->getBookDetails($google_id);
+
 
             $row = array(
                 "google_id" => $google_id,
@@ -101,6 +112,17 @@ class book_model extends CI_Model
             }
         }
         return $book->id;
+    }
+
+    function addIdsToBooks($searchResults)
+    {
+        for ($i = 1; $i < count($searchResults) - 2; $i++) {
+            $book = $this->getBookByGoogleId($searchResults[$i]['google_id']);
+            if ($book != null) {
+                $searchResults[$i]['id'] = $book->id;
+            }
+        }
+        return $searchResults;
     }
 
     function addBookToUserByGoogleId($userId, $googleBookId)

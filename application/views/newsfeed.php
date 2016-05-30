@@ -10,7 +10,7 @@
                                     <Img border="0"
                                          src="https://graph.facebook.com/<?php echo $result[$i]->friend_fbid; ?>/picture?width=40&height=40"
                                          width="40" height="40" class="img-rounded"> </a>
-                                &nbsp; <?php echo $result[$i]->friend_name . ' added a book to his bookshelf.'; ?>
+                                &nbsp; <?php echo $result[$i]->friend_name . ' added a book to his/her bookshelf.'; ?>
                             </h4></div>
                         <div class="panel-body text-center">
                             <Img class="img-rounded newsFeedImg"

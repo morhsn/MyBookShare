@@ -101,9 +101,11 @@ class Page extends CI_Controller
 
         if ($this->checkIfLoggedIn($dataHeader)) {
             $this->load->model('google_model'); // Load the Google model
+            $this->load->model('book_model'); // Load the book model
+            $this->load->model('review_model'); // Load the review model
             $searchTerm = $this->input->post('searchTerm'); // Get the searchTerm the user used
             $pageNumber = $this->input->post('pageNumber'); // Get the pageNumber the user selected
-            if (!isset($searchTerm) || !isset($pageNumber)) // Shouldn't happen, but might with user's client edits
+            if (!isset($searchTerm) || !isset($pageNumber)) // Shouldn't happen, but might with user's client side edits
             {
                 $this->load->view('no_books_found');
                 $this->load->view('footer'); // Load the Footer
@@ -115,6 +117,8 @@ class Page extends CI_Controller
             $data['searchTerm'] = $searchTerm; // Save the search term for use in the page
             $this->load->view('book_search_form', $data); // Load the search form
             $data['searchResults'] = $this->google_model->searchBook($searchTerm, $pageNumber); // Get the books that match the search term from Google Books
+            $data['searchResults'] = $this->book_model->addIdsToBooks($data['searchResults']); // Add ids if we have the books in the DB
+            $data['searchResults'] = $this->review_model->getMassReviews($data['searchResults']); // Add reviews if we have the books in the DB
             if (isset($data['searchResults'])) {
                 $this->load->view('book_search_results', $data); // Load the search results section and have it populated by the results from Google
             } else {
@@ -131,10 +135,15 @@ class Page extends CI_Controller
         if ($this->checkIfLoggedIn($dataHeader)) {
             $this->load->model('login_model');
             $this->load->model('book_model');
+            $this->load->model('review_model');
 
             $user = $this->login_model->getCurrentUser();
             if ($user != null) {
                 $data['books'] = $this->book_model->getUserBooks($user->id);
+                $data['books'] = $this->review_model->getMassReviews($data['books']); // Add reviews if we have the books in the DB
+                $pageTitleData['pageTitle'] = "My Bookshelf"; // Define the title used inside the page
+                $pageTitleData['pageTitleDesc'] = "Manage The Books You Own And Wish To Share."; // Define the subtitle
+                $this->load->view('page_title', $pageTitleData); // Load the page title section
                 $this->load->view('my_bookshelf_books', $data);
             }
         }
@@ -175,6 +184,25 @@ class Page extends CI_Controller
                 $this->load->view('newsfeed', $data);
             }
         }
+        $this->load->view('footer');
+    }
+
+    public function book($bookId)
+    {
+        $this->load->model('book_model');
+        $this->load->model('login_model');
+        $this->load->model('review_model');
+
+        $data['book'] = $this->book_model->getBook($bookId);
+//        $friendsData['friends'] = $this->book_model->getOwners($data['book']->id);
+//        $friendsData['bookId'] = $data['book']->google_id;
+        $user = $this->login_model->getCurrentUser();
+        $data['isOwnedByCurrentUser'] = $user != null && $this->book_model->isOwnedby($bookId, $user->id);
+        $data['reviews'] = $this->review_model->getReviews($bookId);
+
+        $this->loadHeader($data['book']->name);
+        $this->load->view('book_info', $data);
+//        $this->load->view('friends', $friendsData);
         $this->load->view('footer');
     }
 

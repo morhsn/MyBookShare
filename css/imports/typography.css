@@ -20,19 +20,19 @@ dl, dt, dd, ol, ul, li {
 }
 
 ::selection {
-    background: #1ABC9C;
+    background: #145b78;
     color: #FFF;
     text-shadow: none;
 }
 
 ::-moz-selection {
-    background: #1ABC9C; /* Firefox */
+    background: #145b78; /* Firefox */
     color: #FFF;
     text-shadow: none;
 }
 
 ::-webkit-selection {
-    background: #1ABC9C; /* Safari */
+    background: #145b78; /* Safari */
     color: #FFF;
     text-shadow: none;
 }
@@ -54,7 +54,7 @@ body {
 
 a {
     text-decoration: none !important;
-    color: #1ABC9C;
+    color: #145b78;
 }
 
 a:hover {
@@ -134,7 +134,7 @@ h3 > span:not(.nocolor),
 h4 > span:not(.nocolor),
 h5 > span:not(.nocolor),
 h6 > span:not(.nocolor) {
-    color: #1ABC9C;
+    color: #145b78;
 }
 
 p,

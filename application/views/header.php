@@ -38,7 +38,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 
 <body class="stretched" data-animation-in="fadeIn" data-speed-in="500"
-      data-animation-out="fadeOut" data-speed-out="200" data-loader-color="#1ABC9C" data-loader-timeout="1500">
+      data-animation-out="fadeOut" data-speed-out="200" data-loader-color="#145b78" data-loader-timeout="1500">
 
 <!-- Document Wrapper
 ============================================= -->

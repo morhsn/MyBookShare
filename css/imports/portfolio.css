@@ -41,12 +41,12 @@
 }
 
 #portfolio-filter li a:hover {
-    color: #1ABC9C;
+    color: #145b78;
 }
 
 #portfolio-filter li.activeFilter a {
     color: #FFF !important;
-    background-color: #1ABC9C;
+    background-color: #145b78;
     margin: -1px 0;
     padding: 13px 18px;
 }
@@ -83,7 +83,7 @@
 }
 
 #portfolio-shuffle:hover {
-    background-color: #1ABC9C;
+    background-color: #145b78;
     color: #FFF;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
@@ -152,7 +152,7 @@ body:not(.device-touch):not(.device-xs):not(.device-xxs) .portfolio-notitle .por
 }
 
 .portfolio-desc h3 a:hover {
-    color: #1ABC9C;
+    color: #145b78;
 }
 
 .portfolio-desc span {
@@ -1370,7 +1370,7 @@ body:not(.device-touch):not(.device-xs):not(.device-xxs) .portfolio-overlay a {
 }
 
 .portfolio-overlay a:hover {
-    color: #1ABC9C;
+    color: #145b78;
     background-color: #EEE;
 }
 
@@ -1721,7 +1721,7 @@ body.device-touch.device-xxs .portfolio-notitle .portfolio-overlay {
 }
 
 #portfolio-navigation a:hover {
-    color: #1ABC9C;
+    color: #145b78;
 }
 
 #portfolio-ajax-show #portfolio-navigation {

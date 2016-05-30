@@ -5,15 +5,15 @@
 -----------------------------------------------------------------*/
 
 ::selection {
-    background: #1ABC9C;
+    background: #145b78;
 }
 
 ::-moz-selection {
-    background: #1ABC9C;
+    background: #145b78;
 }
 
 ::-webkit-selection {
-    background: #1ABC9C;
+    background: #145b78;
 }
 
 a,
@@ -64,7 +64,7 @@ h6 > span:not(.nocolor),
 .pagination > li > span:focus,
 .dark .post-timeline .entry:hover .entry-timeline,
 .dark .post-timeline .entry:hover .timeline-divider {
-    color: #1ABC9C;
+    color: #145b78;
 }
 
 .color,
@@ -82,7 +82,7 @@ h6 > span:not(.nocolor),
 .nav-tree li:hover > a,
 .nav-tree li.current > a,
 .nav-tree li.active > a {
-    color: #1ABC9C !important;
+    color: #145b78 !important;
 }
 
 #primary-menu.style-3 > ul > li.current > a,
@@ -126,7 +126,7 @@ ul.tab-nav.tab-nav2 li.ui-state-active a,
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
-    background-color: #1ABC9C;
+    background-color: #145b78;
 }
 
 .bgcolor,
@@ -142,7 +142,7 @@ ul.tab-nav.tab-nav2 li.ui-state-active a,
 .pagination > .active > span:hover,
 .pagination > .active > a:focus,
 .pagination > .active > span:focus {
-    background-color: #1ABC9C !important;
+    background-color: #145b78 !important;
 }
 
 #primary-menu.style-4 > ul > li:hover > a,
@@ -158,7 +158,7 @@ ul.tab-nav.tab-nav2 li.ui-state-active a,
 .dark .post-timeline .entry:hover .timeline-divider,
 .dark .cart-product-thumbnail img:hover,
 .heading-block.border-color:after {
-    border-color: #1ABC9C;
+    border-color: #145b78;
 }
 
 .top-links ul ul,
@@ -177,16 +177,16 @@ ul.tab-nav.tab-nav2 li.ui-state-active a,
 #primary-menu.dark ul li .mega-menu-content.style-2,
 .dark #top-cart .top-cart-content,
 .tabs.tabs-tb ul.tab-nav li.ui-tabs-active a {
-    border-top-color: #1ABC9C;
+    border-top-color: #145b78;
 }
 
 #page-menu.dots-menu nav li .dots-menu-caption:after,
 .title-block {
-    border-left-color: #1ABC9C;
+    border-left-color: #145b78;
 }
 
 .title-block-right {
-    border-right-color: #1ABC9C;
+    border-right-color: #145b78;
 }
 
 .fancy-title.title-bottom-border h1,
@@ -197,7 +197,7 @@ ul.tab-nav.tab-nav2 li.ui-state-active a,
 .fancy-title.title-bottom-border h6,
 .more-link,
 .tabs.tabs-bb ul.tab-nav li.ui-tabs-active a {
-    border-bottom-color: #1ABC9C;
+    border-bottom-color: #145b78;
 }
 
 .border-color,
@@ -210,19 +210,19 @@ ul.tab-nav.tab-nav2 li.ui-state-active a,
 .pagination > .active > span:hover,
 .pagination > .active > a:focus,
 .pagination > .active > span:focus {
-    border-color: #1ABC9C !important;
+    border-color: #145b78 !important;
 }
 
 .fbox-effect.fbox-dark .fbox-icon i:after,
 .dark .fbox-effect.fbox-dark .fbox-icon i:after {
-    box-shadow: 0 0 0 2px #1ABC9C;
+    box-shadow: 0 0 0 2px #145b78;
 }
 
 .fbox-border.fbox-effect.fbox-dark .fbox-icon i:hover,
 .fbox-border.fbox-effect.fbox-dark:hover .fbox-icon i,
 .dark .fbox-border.fbox-effect.fbox-dark .fbox-icon i:hover,
 .dark .fbox-border.fbox-effect.fbox-dark:hover .fbox-icon i {
-    box-shadow: 0 0 0 1px #1ABC9C;
+    box-shadow: 0 0 0 1px #145b78;
 }
 
 @media only screen and (max-width: 991px) {
@@ -234,11 +234,11 @@ ul.tab-nav.tab-nav2 li.ui-state-active a,
     #primary-menu ul ul li:hover > a,
     #primary-menu ul li .mega-menu-content.style-2 > ul > li.mega-menu-title:hover > a,
     #primary-menu ul li .mega-menu-content.style-2 > ul > li.mega-menu-title > a:hover {
-        color: #1ABC9C !important;
+        color: #145b78 !important;
     }
 
     #page-menu nav {
-        background-color: #1ABC9C;
+        background-color: #145b78;
     }
 
 }
@@ -246,7 +246,7 @@ ul.tab-nav.tab-nav2 li.ui-state-active a,
 @media only screen and (max-width: 767px) {
 
     #portfolio-filter li a:hover {
-        color: #1ABC9C;
+        color: #145b78;
     }
 
 }

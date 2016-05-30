@@ -25,7 +25,7 @@
 }
 
 .btn-link {
-    color: #1ABC9C;
+    color: #145b78;
 }
 
 .btn-link:hover,
@@ -77,8 +77,8 @@
 .pagination > .active > a:focus,
 .pagination > .active > span:focus {
     color: #FFF !important;
-    background-color: #1ABC9C !important;
-    border-color: #1ABC9C !important;
+    background-color: #145b78 !important;
+    border-color: #145b78 !important;
 }
 
 label.radio,
