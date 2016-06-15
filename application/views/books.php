@@ -14,7 +14,7 @@
                         <div class="panel-heading">
                             <a href="/page/book/<?php echo $books[$i]->id; ?>">
                                 <Img
-                                    src="http://bks5.books.google.com/books?id=<?php echo $books[$i]->google_id; ?>&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                                    src="https://books.google.com/books?id=<?php echo $books[$i]->google_id; ?>&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
                                     class="img-rounded" style="min-height:180px;height:180px;">
                             </a>
 

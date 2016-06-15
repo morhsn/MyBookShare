@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <h1><?= $pageTitle ?></h1>
         <span><?= $pageTitleDesc ?></span>
         <ol class="breadcrumb">
-            <li><a href="http://www.mybooksharing.tk">Home</a></li>
+            <li><a href="https://www.mybooksharing.tk">Home</a></li>
             <li class="active"><?= $pageTitle ?></li>
         </ol>
     </div>

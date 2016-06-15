@@ -14,29 +14,29 @@
                             </h4></div>
                         <div class="panel-body text-center">
                             <Img class="img-rounded newsFeedImg"
-                                 src="http://bks5.books.google.com/books?id=<?php echo $result[$i]->google_id; ?>&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                                 src="https://books.google.com/books?id=<?php echo $result[$i]->google_id; ?>&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
                                  style="min-height:180px;height:180px;">
 
                             <div class="btn-group newsFeedBookMenu">
                                 <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span
                                         class="caret"></span></button>
-                                <ul class="dropdown-menu  pull-right">
+                                <ul class="dropdown-menu pull-right nopadding">
                                     <li>
-                                        <form action="loanBook" method="post" name="loanFormNum<?php echo $i; ?>">
+                                        <form class="nobottommargin" action="page/loanBook" method="post"
+                                              name="loanFormNum<?php echo $i; ?>">
                                             <input type="hidden" value="<?php echo $result[$i]->google_id; ?>"
                                                    name="bookGoogleId">
                                             <input type="hidden" value="<?php echo $result[$i]->friend_id; ?>"
                                                    name="ownerUserId">
-                                            <button type="submit" class="btn btn-default btn-sm">
-                                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;Loan Book
+                                            <button type="submit" style="width: 100%;"
+                                                    class="button button-primary button-sm nomargin">
+                                                <i class="icon-line2-star"></i>&nbsp;Request Loan
                                             </button>
                                         </form>
                                     </li>
-                                    <li class="divider"></li>
-                                    <li><a href="book/<?php echo $result[$i]->book_id; ?>">Book's Profile</a></li>
-                                    <li>
-                                        <a onclick="alert('Broadcasting a book means posting to friends that you have it (maybe on FB, think about it...)')">Broadcast
-                                            Book</a></li>
+                                    <li><a class="button button-primary nomargin"
+                                           href="page/book/<?php echo $result[$i]->book_id; ?>"><i
+                                                class="icon-line2-info"></i>&nbsp;Book's Profile</a></li>
                                 </ul>
                             </div>
                             <div class="newsFeedBookInfo">

@@ -36,6 +36,7 @@ class Page extends CI_Controller
 //        $pageTitleData['pageTitle'] = "Find Books"; // Define the title used inside the page
 //        $pageTitleData['pageTitleDesc'] = "Find Books To Add To Your Bookshelf."; // Define the subtitle
 //        $this->load->view('page_title', $pageTitleData); // Load the page title section
+        $this->load->view('welcome_message'); // Load the Footer
         $this->load->view('footer'); // Load the Footer
     }
 
@@ -81,7 +82,7 @@ class Page extends CI_Controller
         return true;
     }
 
-    public function FindBooksPage()
+    public function FindBooks()
     {
         $dataHeader = $this->loadHeader('Find Books');
 
@@ -128,6 +129,68 @@ class Page extends CI_Controller
         $this->load->view('footer'); // Load the Footer
     }
 
+    public function loanBook()
+    {
+        // User Id is the user who got the book.
+        // Friend Id is the user who gave the book.
+        $this->load->model('login_model');
+        $this->load->model('loan_model');
+        $this->load->model('book_model');
+
+        $bookGoogleId = $this->input->post('bookGoogleId');
+        $ownerUserId = $this->input->post('ownerUserId');
+
+        $user = $this->login_model->getCurrentUser();
+        $book = $this->book_model->getBookByGoogleId($bookGoogleId);
+        if ($user != null && $book != null) {
+            $userId = $user->id;
+            $bookId = $book->id;
+            $isAlreadyLoaned = $this->loan_model->isBookAlreadyLoaned($ownerUserId, $userId, $bookId);
+            if (!$isAlreadyLoaned) {
+                $this->loan_model->requestBookLoan($ownerUserId, $userId, $bookId);
+                $this->loan_model->notifyRequest($ownerUserId, $bookId, $userId);
+                $this->loansManagement();
+            } else {
+                $errorData['msg'] = 'You already borrowed this book from this user.';
+                $this->load->view('error', $errorData);
+                $this->newsfeed();
+            }
+        }
+    }
+
+    public function bookshelf($userId)
+    {
+        // User Id is the user who got the book.
+        // Friend Id is the user who gave the book.
+        $this->load->model('book_model');
+        $this->load->model('user_model');
+        $data['books'] = $this->book_model->getUserBooks($userId);
+        $user = $this->user_model->get_user($userId);
+        if ($user != null)
+            $title = $this->user_model->get_user($userId)->name . "'s books";
+        else
+            $title = "";
+        $data['title'] = $title;
+        $this->loadHeader($title);
+        if (count($data['books']) == 0) {
+            $this->load->view('no_books_found', $data);
+        } else {
+            $this->load->view('books', $data);
+        }
+        $this->load->view('footer'); // Load the Footer
+    }
+
+    public function removeBook($bookId)
+    {
+        $this->load->model('login_model');
+        $this->load->model('book_model');
+        $this->load->model('google_model');
+        $user = $this->login_model->getCurrentUser();
+        $userId = $user->id;
+        $this->book_model->removeBookFromUser($userId, $bookId);
+        $this->myBookshelf();
+    }
+
     public function myBookshelf()
     {
         $dataHeader = $this->loadHeader('My Bookshelf');
@@ -144,15 +207,35 @@ class Page extends CI_Controller
                 $pageTitleData['pageTitle'] = "My Bookshelf"; // Define the title used inside the page
                 $pageTitleData['pageTitleDesc'] = "Manage The Books You Own And Wish To Share."; // Define the subtitle
                 $this->load->view('page_title', $pageTitleData); // Load the page title section
-                $this->load->view('my_bookshelf_books', $data);
+                if (count($data['books']) == 0) {
+                    $this->load->view('no_books_found', $data);
+                } else {
+                    $this->load->view('my_bookshelf_books', $data);
+                }
             }
         }
         $this->load->view('footer');
     }
 
-    public function bookManagement()
+    public function reviewBook()
     {
-        $dataHeader = $this->loadHeader('Book Management');
+        $this->load->model('login_model');
+        $this->load->model('review_model');
+        $user = $this->login_model->getCurrentUser();
+        if ($user != null) {
+            $userId = $user->id;
+            $bookId = $this->input->post('book');
+            $rank = $this->input->post('rank');
+            $review = $this->input->post('review');
+            $this->review_model->addReview($userId, $bookId, $rank, $review);
+            $this->book($bookId);
+        }
+    }
+
+    public
+    function loansManagement()
+    {
+        $dataHeader = $this->loadHeader('Loans Management');
 
         if ($this->checkIfLoggedIn($dataHeader)) {
             // User Id is the user who got the book.
@@ -170,7 +253,75 @@ class Page extends CI_Controller
         $this->load->view('footer');
     }
 
-    public function newsfeed()
+    public
+    function addBook($google_id)
+    {
+        $this->load->model('login_model');
+        $this->load->model('book_model');
+        $this->load->model('google_model');
+        $user = $this->login_model->getCurrentUser();
+        if ($user != null) {
+            $userId = $user->id;
+//            $google_id = $this->input->post('google_id');
+            $name = $this->input->post('name');
+            $author = $this->input->post('author');
+            $isbn = $this->input->post('isbn');
+            $bookId = $this->book_model->addBook($google_id, $name, $author, $isbn);
+            if ($bookId != null)
+                $this->book_model->addBookToUser($userId, $bookId);
+            $this->myBookshelf();
+        }
+    }
+
+    public
+    function deleteLoan()
+    {
+        $this->load->model('login_model');
+        $this->load->model('loan_model');
+        $this->load->model('book_model');
+
+        $bookGoogleId = $this->input->post('bookGoogleId');
+        $friendId = $this->input->post('RequestingFriendId');
+        $loanType = $this->input->post('loanType');
+
+        $user = $this->login_model->getCurrentUser();
+        $book = $this->book_model->getBookByGoogleId($bookGoogleId);
+        if ($user != null && $book != null) {
+            $userId = $user->id;
+            $bookId = $book->id;
+            if ($loanType == 'IBorrow')
+                $this->loan_model->deleteLoan($userId, $friendId, $bookId);
+            else if ($loanType == 'ILend')
+                $this->loan_model->deleteLoan($friendId, $userId, $bookId);
+            else
+                echo "YOU MUST TRANSFER LOAN TYPE TO DELETELOAN() FUNCTION IN PAGE CONTROLLER!";
+            $this->loansManagement();
+        }
+    }
+
+    public
+    function confirmLoan()
+    {
+        $this->load->model('login_model');
+        $this->load->model('loan_model');
+        $this->load->model('book_model');
+
+        $bookGoogleId = $this->input->post('bookGoogleId');
+        $friendId = $this->input->post('RequestingFriendId');
+
+        $user = $this->login_model->getCurrentUser();
+        $book = $this->book_model->getBookByGoogleId($bookGoogleId);
+        if ($user != null && $book != null) {
+            $userId = $user->id;
+            $bookId = $book->id;
+            $this->loan_model->confirmBookLoan($friendId, $userId, $bookId);
+            $this->loan_model->notifyLoanConfirmation($userId, $bookId, $friendId);
+            $this->loansManagement();
+        }
+    }
+
+    public
+    function newsfeed()
     {
         $dataHeader = $this->loadHeader('News Feed');
 
@@ -198,15 +349,20 @@ class Page extends CI_Controller
 //        $friendsData['bookId'] = $data['book']->google_id;
         $user = $this->login_model->getCurrentUser();
         $data['isOwnedByCurrentUser'] = $user != null && $this->book_model->isOwnedby($bookId, $user->id);
+        $data['isReviewedByCurrentUser'] = $user != null && $this->review_model->isReviewedBy($bookId, $user->id);
         $data['reviews'] = $this->review_model->getReviews($bookId);
 
-        $this->loadHeader($data['book']->name);
+        $dataHeader = $this->loadHeader($data['book']->name . ' by ' . $data['book']->author);
+        $pageTitleData['pageTitle'] = $data['book']->name; // Define the title used inside the page
+        $pageTitleData['pageTitleDesc'] = "By " . $data['book']->author; // Define the subtitle
+        $this->load->view('page_title', $pageTitleData); // Load the page title section
         $this->load->view('book_info', $data);
 //        $this->load->view('friends', $friendsData);
         $this->load->view('footer');
     }
 
-    public function login()
+    public
+    function login()
     {
 //        $data["title"] = "This is the title";
 //        $this->load->helper('url');
@@ -245,7 +401,8 @@ class Page extends CI_Controller
         $this->load->view('login', $data);
     }
 
-    public function logout()
+    public
+    function logout()
     {
 
         $this->load->library('facebook');

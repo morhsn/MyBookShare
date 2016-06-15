@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Stylesheets
     ============================================= -->
     <link
-        href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic"
+        href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic"
         rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css"/>
     <link rel="stylesheet" href="css/style.css" type="text/css"/>
@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="css/responsive.css" type="text/css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <!--[if lt IE 9]>
-    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <script src="https://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
 
     <!-- External JavaScripts
@@ -57,10 +57,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <!-- Logo
                 ============================================= -->
                 <div id="logo">
-                    <a href="http://mybooksharing.tk" class="standard-logo" data-dark-logo="images/logo-dark.png"><img
-                            src="images/logo.png" alt="Canvas Logo"></a>
-                    <a href="http://mybooksharing.tk" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img
-                            src="images/logo@2x.png" alt="Canvas Logo"></a>
+                    <a href="https://mybooksharing.tk" class="standard-logo" data-dark-logo="images/logo-dark.png"><img
+                            src="images/logo.png" alt="MyBookSharing"></a>
+                    <a href="https://mybooksharing.tk" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img
+                            src="images/logo@2x.png" alt="MyBookSharing"></a>
                 </div><!-- #logo end -->
 
                 <!-- Primary Navigation
@@ -68,7 +68,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <nav id="primary-menu">
 
                     <ul>
-                        <li><a href="http://mybooksharing.tk">
+                        <li class="hidden-md"><a href="https://mybooksharing.tk">
                                 <div><i class="icon-home"></i>Home</div>
                             </a>
                         </li>
@@ -76,39 +76,48 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div><i class="icon-star2"></i>News feed</div>
                             </a>
                         </li>
-                        <li><a href="page/FindBooksPage">
+                        <li><a href="page/FindBooks">
                                 <div><i class="icon-line-search"></i>Book Search</div>
                             </a>
                         </li>
-                        <li><a href="page/BookManagement">
-                                <div><i class="icon-line-book"></i>Book Management</div>
+                        <li><a href="page/LoansManagement">
+                                <div><i class="icon-line-book"></i>Loans</div>
                             </a>
                         </li>
-                        <li style="border-left: 1px solid #EEE;">
-
+                        <li><a href="page/MyBookshelf">
+                                <div><i class="icon-line-stack-2"></i>My Bookshelf</div>
+                            </a>
+                        </li>
+                        <!--                        <li style="border-left: 1px solid #EEE;">-->
+                        <!--                            --><?php //if ($loggedIn): ?>
+                        <!--                                <a href="#">-->
+                        <!--                                    <div><i class="icon-angle-down"></i>Hello -->
+                        <?php //echo $username; ?><!--</div>-->
+                        <!--                                </a>-->
+                        <!--                            --><?php //else: ?>
+                        <!--                                <a href="--><?php //echo $fbLogin; ?><!--">-->
+                        <!--                                    <img src="images/login-facebook.png"-->
+                        <!--                                         alt="Log In With Facebook" border="0"/>-->
+                        <!--                                </a>-->
+                        <!--                            --><?php //endif ?>
+                        <!--                            --><?php //if ($loggedIn): ?>
+                        <!--                                <ul>-->
+                        <!--                                    <li><a href="--><?php //echo $fbLogin; ?><!--">-->
+                        <!--                                            <div class="ls1"><i class="icon-line2-logout"></i>Log Out</div>-->
+                        <!--                                        </a></li>-->
+                        <!--                                </ul>-->
+                        <!--                            --><?php //endif ?>
+                        <!--                        </li>-->
+                        <li>
                             <?php if ($loggedIn): ?>
-                                <a href="#">
-                                    <div><i class="icon-angle-down"></i>Hello <?php echo $username; ?></div>
+                                <a href="<?php echo $fbLogin; ?>">
+                                    <div class="ls1"><i class="icon-line2-logout"></i>Log Out</div>
                                 </a>
                             <?php else: ?>
                                 <a href="<?php echo $fbLogin; ?>">
                                     <img src="images/login-facebook.png"
                                          alt="Log In With Facebook" border="0"/>
                                 </a>
-                            <?php endif ?>
-                            <?php if ($loggedIn): ?>
-                                <ul>
-                                    <li><a href="page/MyAccount">
-                                            <div class="ls1"><i class="icon-line-head"></i>My Account</div>
-                                        </a></li>
-                                    <li><a href="page/MyBookshelf">
-                                            <div class="ls1"><i class="icon-line-stack-2"></i>My Bookshelf</div>
-                                        </a>
-                                    </li>
-                                    <li><a href="<?php echo $fbLogin; ?>">
-                                            <div class="ls1"><i class="icon-line2-logout"></i>Log Out</div>
-                                        </a></li>
-                                </ul>
                             <?php endif ?>
                         </li>
                     </ul>

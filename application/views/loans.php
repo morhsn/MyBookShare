@@ -3,8 +3,7 @@
         <div class="col-xs-6">
             <div class="page-header">
                 <h1>
-                    My Borrowings
-                    <small>Books I borrowed.</small>
+                    Books I borrowed
                 </h1>
             </div>
             <?php for ($i = 0;
@@ -15,7 +14,7 @@
                         <div class="panel-heading">
                             <a href="/page/book/<?php echo $loansToMe[$i]->book_id; ?>">
                                 <Img
-                                    src="http://bks5.books.google.com/books?id=<?php echo $loansToMe[$i]->google_id; ?>&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                                    src="https://books.google.com/books?id=<?php echo $loansToMe[$i]->google_id; ?>&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
                                     class="img-rounded" style="min-height:180px;height:180px;">
                             </a>
                             <h4><?php echo $loansToMe[$i]->book_name; ?></h4>
@@ -90,8 +89,7 @@
         <div class="col-xs-6">
             <div class="page-header">
                 <h1>
-                    My Loans
-                    <small>Books borrowed from me.</small>
+                    Books borrowed from me.
                 </h1>
             </div>
             <?php for ($i = 0;
@@ -102,7 +100,7 @@
                         <div class="panel-heading">
                             <a href="/page/book/<?php echo $loansFromMe[$i]->book_id; ?>">
                                 <Img
-                                    src="http://bks5.books.google.com/books?id=<?php echo $loansFromMe[$i]->google_id; ?>&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                                    src="https://books.google.com/books?id=<?php echo $loansFromMe[$i]->google_id; ?>&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
                                     class="img-rounded" style="min-height:180px;height:180px;">
                             </a>
                             <h4><?php echo $loansFromMe[$i]->book_name; ?></h4>
