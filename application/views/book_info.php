@@ -42,7 +42,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <blockquote>
                     <?php echo $reviews[$i]->review_text; ?>
                     <footer><a
-                            href="/page/bookshelf/<?php echo $reviews[$i]->id; ?>"><?php echo $reviews[$i]->name; ?></a>
+                            href="/page/bookshelf/<?php echo $reviews[$i]->id; ?>"><?php echo htmlspecialchars($reviews[$i]->name); ?></a>
                 </blockquote>
                 <BR><BR>
             <?php endfor; ?>

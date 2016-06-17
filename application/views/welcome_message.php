@@ -1,7 +1,8 @@
 <div class="container clearfix">
     <div class="divcenter center clearfix" style="max-width: 900px;">
         <img class="bottommargin topmargin" src="images/logo.png" alt="MyBookSharing" data-animate="fadeInUp">
-        <h1 data-animate="fadeInUp" data-delay="200">Welcome<?php if ($loggedIn): ?> Back <?php echo $username; ?>!</h1>
+        <h1 data-animate="fadeInUp" data-delay="200">Welcome<?php if ($loggedIn): ?>
+            Back <?php echo htmlspecialchars($username); ?>!</h1>
         <h1 data-animate="fadeInUp" data-delay="500"><?php else: ?>! <?php endif ?>This is <span>MyBookSharing</span>.
         </h1>
         <h2 class="capitailize" data-animate="fadeInUp" data-delay="1000">A platform for hard-copy book sharing among

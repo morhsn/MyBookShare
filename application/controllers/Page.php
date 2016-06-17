@@ -55,7 +55,7 @@ class Page extends CI_Controller
         $user = $this->login_model->getCurrentUser();
 
         if ($user != null) {
-            $dataHeader['username'] = $user->name;
+            $dataHeader['username'] = htmlspecialchars($user->name);
             $dataHeader['loggedIn'] = true;
         } else {
             $dataHeader['username'] = "login";
@@ -166,16 +166,19 @@ class Page extends CI_Controller
         $this->load->model('user_model');
         $this->load->model('review_model');
         $user = $this->user_model->get_user($userId);
+        $usersname = "";
         $data['friendid'] = $userId;
-        if ($user != null)
-            $title = $this->user_model->get_user($userId)->name . "'s Bookshelf";
-        else
+        if ($user != null) {
+            $usersname = htmlspecialchars($this->user_model->get_user($userId)->name);
+            $title = $usersname . "'s Bookshelf";
+        } else {
             $title = "Bookshelf Does Not Exist";
+        }
         $dataHeader = $this->loadHeader($title);
         if ($this->checkIfLoggedIn($dataHeader)) {
             $pageTitleData['pageTitle'] = $title; // Define the title used inside the page
             if ($user != null)
-                $pageTitleData['pageTitleDesc'] = "See What " . $title . " Has To Offer."; // Define the subtitle
+                $pageTitleData['pageTitleDesc'] = "See What " . $usersname . " Has To Offer."; // Define the subtitle
             $this->load->view('page_title', $pageTitleData); // Load the page title section
             $data['books'] = $this->book_model->getUserBooks($userId);
             $data['books'] = $this->review_model->getMassReviews($data['books']); // Add reviews if we have the books in the DB
@@ -360,8 +363,8 @@ class Page extends CI_Controller
         $data['isReviewedByCurrentUser'] = $user != null && $this->review_model->isReviewedBy($bookId, $user->id);
         $data['reviews'] = $this->review_model->getReviews($bookId);
 
-        $dataHeader = $this->loadHeader($data['book']->name . ' by ' . $data['book']->author);
-        $pageTitleData['pageTitle'] = $data['book']->name; // Define the title used inside the page
+        $dataHeader = $this->loadHeader(htmlspecialchars($data['book']->name) . ' by ' . $data['book']->author);
+        $pageTitleData['pageTitle'] = htmlspecialchars($data['book']->name); // Define the title used inside the page
         $pageTitleData['pageTitleDesc'] = "By " . $data['book']->author; // Define the subtitle
         $this->load->view('page_title', $pageTitleData); // Load the page title section
         $this->load->view('book_info', $data);

@@ -10,7 +10,7 @@
                                     <Img border="0"
                                          src="https://graph.facebook.com/<?php echo $result[$i]->friend_fbid; ?>/picture?width=40&height=40"
                                          width="40" height="40" class="img-rounded"> </a>
-                                &nbsp; <?php echo $result[$i]->friend_name . ' added a book to his/her bookshelf.'; ?>
+                                &nbsp; <?php echo htmlspecialchars($result[$i]->friend_name) . ' added a book to his/her bookshelf.'; ?>
                             </h4></div>
                         <div class="panel-body text-center">
                             <Img class="img-rounded newsFeedImg"
@@ -40,8 +40,8 @@
                                 </ul>
                             </div>
                             <div class="newsFeedBookInfo">
-                                <h4><?php echo $result[$i]->book_name; ?></h4>
-                                <h6><?php echo $result[$i]->book_author; ?></h6></div>
+                                <h4><?php echo htmlspecialchars($result[$i]->book_name); ?></h4>
+                                <h6><?php echo htmlspecialchars($result[$i]->book_author); ?></h6></div>
                         </div>
                         <div class="panel-footer text-center"><p>Added
                                 at: <?php echo $result[$i]->book_added_date; ?></p></div>

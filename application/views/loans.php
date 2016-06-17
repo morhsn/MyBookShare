@@ -17,8 +17,8 @@
                                     src="https://books.google.com/books?id=<?php echo $loansToMe[$i]->google_id; ?>&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
                                     class="img-rounded" style="min-height:180px;height:180px;">
                             </a>
-                            <h4><?php echo $loansToMe[$i]->book_name; ?></h4>
-                            <h6><?php echo $loansToMe[$i]->author; ?></h6>
+                            <h4><?php echo htmlspecialchars($loansToMe[$i]->book_name); ?></h4>
+                            <h6><?php echo htmlspecialchars($loansToMe[$i]->author); ?></h6>
                         </div>
                         <div class="panel-footer">
                             <h4><?php echo($loansToMe[$i]->due_date == null ? '<strong>Requesting</strong> from' : '<strong>Borrowed</strong> from') ?>
@@ -28,7 +28,7 @@
                                         width="30"
                                         height="30"
                                         class="img-rounded">
-                                </a><?php echo $loansToMe[$i]->friendName ?>
+                                </a><?php echo htmlspecialchars($loansToMe[$i]->friendName); ?>
                             </h4>
 
                             <?php if ($loansToMe[$i]->due_date == null) { ?>
@@ -103,8 +103,8 @@
                                     src="https://books.google.com/books?id=<?php echo $loansFromMe[$i]->google_id; ?>&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
                                     class="img-rounded" style="min-height:180px;height:180px;">
                             </a>
-                            <h4><?php echo $loansFromMe[$i]->book_name; ?></h4>
-                            <h6><?php echo $loansFromMe[$i]->author; ?></h6>
+                            <h4><?php echo htmlspecialchars($loansFromMe[$i]->book_name); ?></h4>
+                            <h6><?php echo htmlspecialchars($loansFromMe[$i]->author); ?></h6>
                         </div>
                         <div class="panel-footer">
                             <h4><a href="/page/bookshelf/<?php echo $loansFromMe[$i]->userId; ?>"><Img
@@ -113,7 +113,7 @@
                                         width="30"
                                         height="30"
                                         class="img-rounded">
-                                </a><?php echo $loansFromMe[$i]->userName ?><br/><br/>
+                                </a><?php echo htmlspecialchars($loansFromMe[$i]->userName) ?><br/><br/>
                                 <?php echo($loansFromMe[$i]->due_date == null ? '<strong>is requesting </strong> from me.' : '<strong>is borrowing</strong> from me.') ?>
                             </h4>
                             <?php if ($loansFromMe[$i]->due_date == null) { ?>
