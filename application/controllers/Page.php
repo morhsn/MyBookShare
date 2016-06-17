@@ -164,18 +164,26 @@ class Page extends CI_Controller
         // Friend Id is the user who gave the book.
         $this->load->model('book_model');
         $this->load->model('user_model');
-        $data['books'] = $this->book_model->getUserBooks($userId);
+        $this->load->model('review_model');
         $user = $this->user_model->get_user($userId);
+        $data['friendid'] = $userId;
         if ($user != null)
-            $title = $this->user_model->get_user($userId)->name . "'s books";
+            $title = $this->user_model->get_user($userId)->name . "'s Bookshelf";
         else
-            $title = "";
-        $data['title'] = $title;
-        $this->loadHeader($title);
-        if (count($data['books']) == 0) {
-            $this->load->view('no_books_found', $data);
-        } else {
-            $this->load->view('books', $data);
+            $title = "Bookshelf Does Not Exist";
+        $dataHeader = $this->loadHeader($title);
+        if ($this->checkIfLoggedIn($dataHeader)) {
+            $pageTitleData['pageTitle'] = $title; // Define the title used inside the page
+            if ($user != null)
+                $pageTitleData['pageTitleDesc'] = "See What " . $title . " Has To Offer."; // Define the subtitle
+            $this->load->view('page_title', $pageTitleData); // Load the page title section
+            $data['books'] = $this->book_model->getUserBooks($userId);
+            $data['books'] = $this->review_model->getMassReviews($data['books']); // Add reviews if we have the books in the DB
+            if (count($data['books']) == 0) {
+                $this->load->view('no_books_found', $data);
+            } else {
+                $this->load->view('friends_bookshelf_books', $data);
+            }
         }
         $this->load->view('footer'); // Load the Footer
     }
