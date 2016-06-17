@@ -5,7 +5,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <a href="https://books.google.co.il/books?id=<?php echo $book->google_id; ?>" target="_blank">
+            <a target="bookinfoframe" href="https://books.google.co.il/books?id=<?php echo $book->google_id; ?>"
+               target="_blank">
                 <img
                     src="https://books.google.com/books?id=<?php echo $book->google_id; ?>&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
                     class="img-responsive">
