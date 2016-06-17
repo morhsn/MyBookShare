@@ -18,9 +18,4 @@ class user extends CI_Controller
         redirect('http://mybooksharing.tk');
     }
 
-    public function register()
-    {
-
-    }
-
 }

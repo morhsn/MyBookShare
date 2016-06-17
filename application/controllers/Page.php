@@ -412,17 +412,4 @@ class Page extends CI_Controller
         $this->load->view('login', $data);
     }
 
-    public
-    function logout()
-    {
-
-        $this->load->library('facebook');
-
-        // Logs off session from website
-        $this->facebook->destroySession();
-        // Make sure you destory website session as well.
-
-        redirect('page/login');
-    }
-
 }
