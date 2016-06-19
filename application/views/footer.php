@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div>
 
 <!-- Footer		============================================= -->
-<footer id="footer" class="dark"
+<footer id="footer" class="dark topmargin-sm"
         style="background: url('images/footer-bg.jpg') repeat fixed; background-size: 100% 100%;">
     <div class="container">        <!-- Footer Widgets        ============================================= -->
         <div class="footer-widgets-wrap clearfix">

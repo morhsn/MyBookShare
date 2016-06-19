@@ -15,4 +15,20 @@
 
     <div class="clear"></div>
 
+    <?php if (!$loggedIn): ?>
+        <div class="container clearfix topmargin bottommargin-sm">
+            <div class="row">
+                <div class="fancy-title title-dotted-border title-center" data-animate="fadeIn" data-delay="1800">
+                    <h2>Ready To Have <span>The Books You Want</span> In The <span>Palm Of Your Hand?</span></h2>
+                </div>
+                <div class="text-center" data-animate="fadeIn" data-delay="2000">
+                    <a href="<?php echo $fbLogin; ?>">
+                        <img src="images/login-facebook-xl.png"
+                             alt="Sign Up / Log In Instantly Using Your Facebook Account" border="0"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    <?php endif ?>
+
 </div>
