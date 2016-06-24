@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="widget clearfix">
                     <p class="capitalize text-center" data-class-xxs="topmargin">MyBookSharing - A platform for
                         hard-copy book sharing among friends.</p>
-                    <div class="col_half">
+                    <div class="col_full">
                         <div class="widget clearfix">
                             <div class="clearfix"
                                  style="padding: 5px 0; background: url('images/world-map.png') no-repeat center center;">
@@ -35,8 +35,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div><!-- .footer-widgets-wrap end -->    </div>
     <!-- Copyrights    ============================================= -->
     <div id="copyrights">
-        <div class="container clearfix">
-            <div class="col_half">
+        <div class="container clearfix text-center">
+            <div class="col_full">
                 Copyright &copy; 2016 MyBookSharing.
             </div>
         </div>
